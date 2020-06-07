@@ -7,16 +7,25 @@ import com.sixty4bits.sqldsl.table.getColumnName
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
 
-class SelectCommand(@PublishedApi internal val state: SelectState) {
+class SelectCommand {
+
+    @PublishedApi
+    internal val columns: MutableList<String> = mutableListOf()
+
+    @PublishedApi
+    internal lateinit var tableWrapper: TableWrapper<*>
+
+    @PublishedApi
+    internal var where: Condition? = null
 
     inline fun <reified T : Table> columns(vararg columns: KProperty1<T, *>) {
-        state.columns.add(columns.joinToString { it.getColumnName() })
+        this.columns.add(columns.joinToString { it.getColumnName() })
     }
 
     inline fun <reified T : Table> from(table: KClass<T>): TableWrapper<T> =
-        TableWrapper(table).also { state.tableWrapper = it }
+        TableWrapper(table).also { this.tableWrapper = it }
 
     fun where(condition: Condition) {
-        state.where = condition
+        this.where = condition
     }
 }
