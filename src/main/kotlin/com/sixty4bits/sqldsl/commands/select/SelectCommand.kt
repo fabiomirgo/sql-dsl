@@ -14,8 +14,7 @@ class SelectCommand {
 
     @PublishedApi
     internal lateinit var tableWrapper: TableWrapper<*>
-
-    @PublishedApi
+    
     internal var where: Condition? = null
 
     inline fun <reified T : Table> columns(vararg columns: KProperty1<T, *>) {

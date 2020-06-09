@@ -6,7 +6,7 @@ import io.kotlintest.shouldBe
 import io.kotlintest.shouldThrow
 import io.kotlintest.specs.ShouldSpec
 
-class SelectTest : ShouldSpec({
+class SelectCommandTest : ShouldSpec({
 
     should("throw UninitializedPropertyAccessException exception when FROM clause is missing") {
         shouldThrow<UninitializedPropertyAccessException> {
